@@ -21,6 +21,9 @@ def my_view(request):
 # Create an `about` view to render a static about page
 def about(request):
     return render(request, 'about.html')
+
+def contact(request):
+    return render(request, 'contact.html')
 # ...
 
 
