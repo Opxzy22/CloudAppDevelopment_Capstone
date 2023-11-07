@@ -32,6 +32,18 @@
         <ul>
             <li><button><a href="about/">About</a></button></li>
             <li><button><a href="contact/">Contact</a></button></li>
+            <li>
+                <form>
+                    <input type="text" placeholder="username">
+                    <input type="text" placeholder="password">
+                </form>
+            </li>
+            <li>
+                <button onclick="windows.location.href='{% url 'login' %}'">Login</button>
+            </li>
+            <li>
+                <button onclick="windows.location.href='{% url 'signup' %}'">Signup</button>
+            </li>
         </ul>
 
     </nav>
