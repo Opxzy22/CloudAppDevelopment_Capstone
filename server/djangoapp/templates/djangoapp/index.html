@@ -44,6 +44,14 @@
             <li>
                 <button onclick="windows.location.href='{% url 'signup' %}'">Signup</button>
             </li>
+            <li>
+                <span>Welcome, John</span>
+            </li>
+            <li>
+                <form>
+                    <button type="submit" formaction="{% url 'signout' %}">Signout</button>
+                </form>
+            </li>
         </ul>
 
     </nav>
