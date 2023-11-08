@@ -8,6 +8,9 @@
 </head>
 <body>
 <!--Authentication section-->
+    {% if user.is_authenticated}
+    <p>Username: {{user.user_name}}, first name: {{user.first_name}}, last name: {{user.last_name}}</p>
+    {% endif %}
 
 <h2>Popular courses list</h2>
 <hr>
