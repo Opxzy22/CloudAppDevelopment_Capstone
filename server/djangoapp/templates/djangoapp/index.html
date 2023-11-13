@@ -52,6 +52,11 @@
                     <button type="submit" formaction="{% url 'signout' %}">Signout</button>
                 </form>
             </li>
+            {% if user.is_authenticated %}
+            <span> welcome, {{ user.first_name|default:user.last_name }}!</span>
+            <li>
+                <button onclick="window.location.href='{% url 'signout' %}'">Signout</button>
+            </li>
         </ul>
 
     </nav>
