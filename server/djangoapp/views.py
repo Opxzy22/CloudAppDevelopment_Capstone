@@ -31,7 +31,23 @@ def contact(request):
     return render(request, 'contact.html')
 
 # Create a `login_request` view to handle sign in request
-# def login_request(request):
+def login_request(request):
+    if request.method = 'POST':
+        # get the username and password from the form
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        #aunthenticate user
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            # login the user
+            login(request, user)
+            messages.success(request, 'login successful.')
+            return redirect ('home')
+        else:
+            messages.error(request, 'invalid password or username')
+    return render (request, 'login.html')
 # ...
 
 # Create a `logout_request` view to handle sign out request
