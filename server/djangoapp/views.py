@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.forms import UserCreationForm
 # from .models import related models
 # from .restapis import related methods
 from django.contrib.auth import login, logout, authenticate
@@ -44,7 +45,7 @@ def login_request(request):
             # login the user
             login(request, user)
             messages.success(request, 'login successful.')
-            return redirect ('home')
+            return redirect ('django/index.html')
         else:
             messages.error(request, 'invalid password or username')
     return render (request, 'login.html')
@@ -61,7 +62,16 @@ def logout_request(request):
 # ...
 
 # Create a `registration_request` view to handle sign up request
-# def registration_request(request):
+def registration_request(request):
+    if request.method='POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Log in the user after successful signup
+            return redirect ('django/index.html')
+    else:
+        form = UserCreationForm()
+    return render(request, 'djangoapp/regristration.html', {'form': form})
 # ...
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
