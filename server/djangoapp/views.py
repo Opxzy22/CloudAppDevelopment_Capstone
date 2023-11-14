@@ -51,7 +51,13 @@ def login_request(request):
 # ...
 
 # Create a `logout_request` view to handle sign out request
-# def logout_request(request):
+def logout_request(request):
+    # use django's logout function to logout user
+    logout(request, user)
+    # add a logout success message
+    messages.success(request, 'you have logout successfully.')
+    # redirect to the login page after logout
+    return redirect ('login')
 # ...
 
 # Create a `registration_request` view to handle sign up request
