@@ -33,7 +33,7 @@ def contact(request):
 
 # Create a `login_request` view to handle sign in request
 def login_request(request):
-    if request.method = 'POST':
+    if request.method == "POST":
         # get the username and password from the form
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -63,7 +63,7 @@ def logout_request(request):
 
 # Create a `registration_request` view to handle sign up request
 def registration_request(request):
-    if request.method='POST':
+    if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
