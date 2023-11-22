@@ -31,7 +31,7 @@ class CarModel(models.Model):
     ('SUV', 'Suv'),
     ('WAGON', 'Wagon'),
   ]
-  car_type = models.CharField(max_length, choices=Choices_Type)
+  car_type = models.CharField(max_length=100, choices=Choices_Type)
 # - Year (DateField)
   Year = DateField()
 
