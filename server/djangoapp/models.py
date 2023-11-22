@@ -24,7 +24,7 @@ class CarModel(models.Model):
 # - Name
   name = models.CharField(max_length=100)
 # - Dealer id, used to refer a dealer created in cloudant database
-  id = models.IntegerField()
+  dealer_id = models.IntegerField()
 # - Type (CharField with a choices argument to provide limited choices such as Sedan, SUV, WAGON, etc.)
   Choices_Type = [
     ('SEDAN', 'Sedan'),
