@@ -32,23 +32,33 @@ def contact(request):
     return render(request, 'contact.html')
 
 # Create a `login_request` view to handle sign in request
+from django.contrib.auth.forms import AuthenticationForm
+
 def login_request(request):
     if request.method == "POST":
-        # get the username and password from the form
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        
-        #aunthenticate user
-        user = authenticate(request, username=username, password=password)
+        # Use Django's built-in AuthenticationForm for form validation
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            # The form data is valid, proceed with authentication
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
 
-        if user is not None:
-            # login the user
-            login(request, user)
-            messages.success(request, 'login successful.')
-            return redirect ('django/index.html')
+            # Authenticate user
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                # Login the user
+                login(request, user)
+                messages.success(request, 'Login successful.')
+                return redirect('django:index')  # Adjust the redirect path
+            else:
+                messages.error(request, 'Invalid password or username')
         else:
-            messages.error(request, 'invalid password or username')
-    return render (request, 'login.html')
+            messages.error(request, 'Form is not valid. Please check your input.')
+    
+    # If the request is not POST or form is not valid, render the login template
+    return render(request, 'login.html')
+
 # ...
 
 # Create a `logout_request` view to handle sign out request
