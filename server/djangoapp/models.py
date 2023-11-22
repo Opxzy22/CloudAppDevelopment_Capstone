@@ -20,7 +20,7 @@ class CarMake(models.Model):
 # <HINT> Create a Car Model model
 class CarModel(models.Model):
 # - Many-To-One relationship to Car Make model (One Car Make has many Car Models, using ForeignKey field)
-  car_make = models.ForeignKey(CarMake, on_delete=CASCADE)
+  car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
 # - Name
   name = models.CharField(max_length=100)
 # - Dealer id, used to refer a dealer created in cloudant database
@@ -31,6 +31,7 @@ class CarModel(models.Model):
     ('SUV', 'Suv')
     ('WAGON', 'Wagon')
   ]
+  car_type = models.CharField(max_length, choices=Choices_Type)
 # - Year (DateField)
   Year = DateField()
 
