@@ -33,7 +33,7 @@ class CarModel(models.Model):
   ]
   car_type = models.CharField(max_length=100, choices=Choices_Type)
 # - Year (DateField)
-  Year = DateField()
+  Year = models.DateField()
 
 # - __str__ method to print a car make object
   def __str__(self):
