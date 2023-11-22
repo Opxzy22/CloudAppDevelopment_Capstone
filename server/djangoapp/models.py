@@ -27,9 +27,9 @@ class CarModel(models.Model):
   id = models.IntegerField()
 # - Type (CharField with a choices argument to provide limited choices such as Sedan, SUV, WAGON, etc.)
   Choices_Type = [
-    ('SEDAN', 'Sedan')
-    ('SUV', 'Suv')
-    ('WAGON', 'Wagon')
+    ('SEDAN', 'Sedan'),
+    ('SUV', 'Suv'),
+    ('WAGON', 'Wagon'),
   ]
   car_type = models.CharField(max_length, choices=Choices_Type)
 # - Year (DateField)
