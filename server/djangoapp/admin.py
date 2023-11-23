@@ -10,7 +10,7 @@ from .models import CarMake, CarModel
 class CarModelInline(admin.StackedInline):
   model = CarModel
 
-class CarMakelAdmin(admin.ModelAdmin):
+class CarMakeAdmin(admin.ModelAdmin):
   inlines = [CarModelInline]
 
 # CarMakeAdmin class with CarModelInline
