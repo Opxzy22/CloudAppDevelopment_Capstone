@@ -82,9 +82,9 @@ def registration_request(request):
         if form.is_valid():
             # Step 3: Extract cleaned data from the form
             username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
+            password = form.cleaned_data['password']
+            first_name = form.cleaned_data['firstname']
+            last_name = form.cleaned_data['lastname']
 
             try:
                 # Step 4: Check if user already exists
