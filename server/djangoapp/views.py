@@ -75,15 +75,39 @@ def logout_request(request):
 # Create a `registration_request` view to handle sign up request
 def registration_request(request):
     if request.method == "POST":
+        # Step 1: Get form data
         form = UserCreationForm(request.POST)
+        
+        # Step 2: Check if the form is valid
         if form.is_valid():
-            user = form.save()
-            login(request, user)  # Log in the user after successful signup
-            return redirect ('django/index.html')
-    else:
-        form = UserCreationForm()
-    return render(request, 'django/registration.html', {'form': form})
+            # Step 3: Extract cleaned data from the form
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
 
+            try:
+                # Step 4: Check if user already exists
+                existing_user = User.objects.get(username=username)
+                logger.debug(f"{username} already exists.")
+            except User.DoesNotExist:
+                # Step 5: If not, create a new user
+                logger.debug(f"{username} is a new user.")
+                user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,
+                                                password=password)
+                # Step 6: Log in the user after successful signup
+                login(request, user)
+                return redirect('djangoapp/index.html')
+
+    else:
+        # Step 7: If it's not a POST request, create an empty form
+        form = UserCreationForm()
+
+    # Step 8: Render the registration page with the form
+    return render(request, 'djangoapp/registration.html', {'form': form})
+# ...
+
+    
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
     context = {}
