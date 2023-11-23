@@ -10,7 +10,7 @@ from django.contrib import messages
 from datetime import datetime
 import logging
 import json
-from .form import SignUpForm
+#from .form import SignUpForm
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
