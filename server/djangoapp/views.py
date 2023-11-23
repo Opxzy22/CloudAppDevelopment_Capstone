@@ -75,7 +75,7 @@ def logout_request(request):
 # Create a `registration_request` view to handle sign up request
 def registration_request(request):
     if request.method == "POST":
-        form = signUpForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)  # Log in the user after successful signup
