@@ -82,7 +82,7 @@ def registration_request(request):
             return redirect ('django/index.html')
     else:
         form = UserCreationForm()
-    return render(request, 'djangoapp/registration.html', {'form': form})
+    return render(request, 'djangoapp/about.html', {'form': form})
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
