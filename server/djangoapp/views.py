@@ -97,7 +97,7 @@ def registration_request(request):
                                                 password=password)
                 # Step 6: Log in the user after successful signup
                 login(request, user)
-                return redirect('djangoapp/index.html')
+                return redirect('django:index.html')
 
     else:
         # Step 7: If it's not a POST request, create an empty form
