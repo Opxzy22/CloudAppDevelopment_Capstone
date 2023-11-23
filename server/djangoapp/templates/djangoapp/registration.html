@@ -9,7 +9,6 @@
     <div class="container mt-5">
         <h1>Registration form</h1>
         <form method="post" action="{% url 'djangoapp:signup' %}">
-            {% csrf_token %}
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" class="form-control" id="username" placeholder="Enter your username">
@@ -26,6 +25,7 @@
                 <label for="password">Password:</label>
                 <input type="password" class="form-control" id="password" placeholder="Enter your password">
             </div>
+             {% csrf_token %}
             <button type="submit" class="btn btn-primary">Sign Up</button>
         </form>
     </body>
