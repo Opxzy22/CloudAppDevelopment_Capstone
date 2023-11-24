@@ -10,9 +10,10 @@ def get_request(url, **kwargs):
   print("GET from: {} " .format(url))
 
   try:
-    response = requests.get(url, params=kwargs, headers={'Content-Type': 'application/json'},
-#                                     params=kwargs)
+    response = requests.get(url, params=kwargs, headers={'Content-Type': 'application/json'})
+    
   except:
+    # If any error occurs
     print("Network exception error")
     status_code = response.status_code
     print("with status {} " .format(status_code))
