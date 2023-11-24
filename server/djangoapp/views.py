@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.forms import UserCreationForm
 # from .models import related models
 # from .restapis import related methods
-from .restapis import get_dealers_from_cf
+from .restapis import get_dealers_from_cf, get_dealers_by_state
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from datetime import datetime
@@ -96,6 +96,14 @@ def get_dealerships(request):
         dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
         # Return a list of dealer short name
         return HttpResponse(dealer_names)
+
+
+def get_dealershps_by_state(request, state):
+    if request.method == "GET":
+        url = "https://us-south.functions.appdomain.cloud/api/v1/web/a12ecb5a-f0a3-4a55-9a4a-b1b28c1fdc99/default/getDealerships"
+        # get dealers by state from url
+        dealership_by_state = get_dealers_by_state(url, state)
+        return HttpResponse(dealership_by_state)
 
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
