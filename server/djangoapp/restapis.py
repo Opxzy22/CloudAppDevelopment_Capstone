@@ -10,7 +10,8 @@ def get_request(url, **kwargs):
   print("GET from: {} " .format(url))
 
   try:
-    response = requests.get(url, params=kwargs, headers={'Content-Type': 'application/json'})
+    response = requests.get(url, params=params, headers={'Content-Type': 'application/json'},
+                                    auth=HTTPBasicAuth('apikey', IAM_API_KEY))
     
   except:
     # If any error occurs
@@ -80,9 +81,55 @@ def get_dealer_reviews_from_cf(url, dealerId=dealer_id):
 
 
 # Create an `analyze_review_sentiments` method to call Watson NLU and analyze text
-# def analyze_review_sentiments(text):
-# - Call get_request() with specified arguments
-# - Get the returned sentiment label such as Positive or Negative
+import requests
+from requests.auth import HTTPBasicAuth
+from django.http import HttpResponse
+
+def analyze_review_sentiments(text, **kwargs):
+    # Call get_request() with specified arguments
+
+    analyzed_reviews = []
+
+    # Prepare parameters for the Watson NLU API request
+    params = {
+        "text": kwargs.get("text", ""),
+        "version": kwargs.get("version", ""),
+        "features": kwargs.get("features", ""),
+        "return_analyzed_text": kwargs.get("return_analyzed_text", "")
+    }
+
+    # Replace 'url' with the actual URL of your Watson NLU service
+    url = "https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/YOUR_INSTANCE_ID/v1/analyze"
+
+    # Make a GET request to the Watson NLU service
+    response = requests.get(
+        url,
+        params=params,
+        headers={'Content-Type': 'application/json'},
+        auth=HTTPBasicAuth('apikey', 'IAM_API_KEY')
+    )
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        # Get the returned sentiment label such as Positive or Negative
+        # Extract sentiment score
+        sentiment_score = response.json().get('sentiment', {}).get('document', {}).get('score', None)
+
+        # Add sentiment score to the review data
+        analyzed_review = {
+            'content': text,
+            'sentiment_score': sentiment_score
+        }
+
+        analyzed_reviews.append(analyzed_review)
+
+        # You can now use 'analyzed_reviews' as needed, for example, return it as JSON
+        return HttpResponse(analyzed_reviews)
+
+    # Handle errors if the request was not successful
+    else:
+        return HttpResponse(f"Error: {response.status_code}")
+
 
 
 
