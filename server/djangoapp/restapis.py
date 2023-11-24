@@ -53,7 +53,8 @@ def get_dealers_from_cf(url, **kwargs):
 def get_dealers_by_state(url, state, **kwargs):
   results = []
   json_data = get_request(url, state=state)
-  return json_data
+  results.append(json_data)
+  return results
       
     
 
