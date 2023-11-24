@@ -10,8 +10,8 @@ def get_request(url, **kwargs):
   print("GET from: {} " .format(url))
 
   try:
-    response = requests.get(url=COUCH_URL, params=kwargs, headers={'Content-Type': 'application/json'},
-#                                     auth=HTTPBasicAuth('apikey', IAM_API_KEY))
+    response = requests.get(url, params=kwargs, headers={'Content-Type': 'application/json'},
+#                                     params=kwargs)
   except:
     print("Network exception error")
     status_code = response.status_code
