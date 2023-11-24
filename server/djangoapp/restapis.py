@@ -49,6 +49,12 @@ def get_dealers_from_cf(url, **kwargs):
                                    st=dealer_doc["st"], zip=dealer_doc["zip"])
       results.append(dealer_obj)
   return results
+
+def get_dealers_by_state(url, state, **kwargs):
+  results = []
+  json_data = get_request(url, state=state)
+  return json_data
+      
     
 
 
