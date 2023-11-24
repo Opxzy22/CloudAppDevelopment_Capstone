@@ -107,7 +107,11 @@ def get_dealershps_by_state(request, state):
 
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
-# def get_dealer_details(request, dealer_id):
+def get_dealer_details(request, dealer_id):
+    if request.method == "GET":
+        url = https://us-south.functions.appdomain.cloud/api/v1/web/a12ecb5a-f0a3-4a55-9a4a-b1b28c1fdc99/default/getReview
+        reviews = get_dealer_reviews_from_cf(url, dealer_id)
+        return HttpResponse(reviews)
 # ...
 
 # Create a `add_review` view to submit a review
