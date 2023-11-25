@@ -61,23 +61,43 @@ def get_dealers_by_state(url, state, **kwargs):
 
 
 # Create a get_dealer_reviews_from_cf method to get reviews by dealer id from a cloud function
+from django.http import HttpResponse
+
 def get_dealer_reviews_from_cf(url, dealerId=dealer_id):
-  results = []
-# - Call get_request() with specified arguments
-  json_data = get_request(url, dealerId=id)
+    results = []
 
-  if json_data:
-    reviews_row = json_data("rows")
+    # Call get_request() with specified arguments
+    json_data = get_request(url, dealerId=id)
 
-    for review in reviews_row:
-      reviews_doc = review("doc")
-# - Parse JSON results into a DealerView object list
-      reviews_obj = DealerReview(id=reviews_doc["id"], name=reviews_doc["name"], dealership=reviews_doc["dealership"],
-                                 review=reviews_doc["review"], purchase=reviews_doc["purchase"], purchase_date=reviews_doc["purchase_date"],
-                                 car_make=reviews_doc["car_make"], car_model=reviews_doc["car_model"] car_year=reviews_doc["car_year"])
-      results.append(reviews_obj)
+    if json_data:
+        reviews_row = json_data.get("rows", [])
 
-  return HttpResponse(results)
+        for review in reviews_row:
+            reviews_doc = review.get("doc", {})
+
+            # Parse JSON results into a DealerReview object list
+            reviews_obj = DealerReview(
+                id=reviews_doc.get("id", ""),
+                name=reviews_doc.get("name", ""),
+                dealership=reviews_doc.get("dealership", ""),
+                review=reviews_doc.get("review", ""),
+                purchase=reviews_doc.get("purchase", ""),
+                purchase_date=reviews_doc.get("purchase_date", ""),
+                car_make=reviews_doc.get("car_make", ""),
+                car_model=reviews_doc.get("car_model", ""),
+                car_year=reviews_doc.get("car_year", "")
+            )
+
+            # Call the function to analyze sentiment and add it to the review object
+            review_obj.sentiment = analyze_review_sentiments(reviews_obj.review)
+
+            results.append(reviews_obj)
+
+        return HttpResponse(results)
+
+    else:
+        return HttpResponse("Error: Unable to fetch data from Cloud Foundry.")
+
 
 
 # Create an `analyze_review_sentiments` method to call Watson NLU and analyze text
