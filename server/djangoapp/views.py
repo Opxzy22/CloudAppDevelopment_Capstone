@@ -88,16 +88,16 @@ def registration_request(request):
    
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
-    dealer_list = {}
+    context = {}
     if request.method == "GET":
         url = "https://us-south.functions.appdomain.cloud/api/v1/web/a12ecb5a-f0a3-4a55-9a4a-b1b28c1fdc99/default/getDealerships"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
-        dealer_list.extend(dealerships)
+        context[dealerships] = dealerships
         # Concat all dealer's short name
         dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
         # Return a list of dealer short name
-        return render(request, 'djangoapp/index.html', {'dealer_names': dealer_names})
+        return render(request, 'djangoapp/index.html', context)
 
 
 def get_dealershps_by_state(request, state):
