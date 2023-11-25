@@ -121,6 +121,15 @@ def get_dealer_details(request, dealer_id):
 # def add_review(request, dealer_id):
 @login_required
 def add_review(request, dealer_id):
+    cloud_function_url = "https://us-south.functions.appdomain.cloud/api/v1/web/a12ecb5a-f0a3-4a55-9a4a-b1b28c1fdc99/default/postReview"
+    headers = {
+        "Authorization": "api_key",
+        "Content-Type": "application/json"
+    }
+
+    # Make a POST request to the cloud function endpoint
+    response = requests.post(cloud_function_url, json=review, headers=headers)
+
     if request.method == "POST":
         # Check if the user is authenticated
         if request.user.is_authenticated:
@@ -140,10 +149,9 @@ def add_review(request, dealer_id):
                 'car_year': request.POST.get('car_year', ''),
             }
 
-            # You can add more attributes to the 'review' dictionary based on your cloud function
-
             # Perform any additional processing or call your cloud function to add the review
             # Example: add_review_to_cloud(review)
+            postReview(review)
 
             # Return a success message or redirect to a confirmation page
             return HttpResponse(f"Review added successfully for dealer {dealer_id}")
