@@ -119,5 +119,41 @@ def get_dealer_details(request, dealer_id):
 
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
+@login_required
+def add_review(request, dealer_id):
+    if request.method == "POST":
+        # Check if the user is authenticated
+        if request.user.is_authenticated:
+            # Get user information
+            user_name = request.user.username
+
+            # Create a dictionary for the review
+            review = {
+                'time': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                'name': user_name,
+                'dealership': "", 
+                'review': request.POST.get('review', ''),  
+                'purchase': request.POST.get('purchase', ''),
+                'purchase_date': request.POST.get('purchase_date', ''),
+                'car_make': request.POST.get('car_make', ''),
+                'car_model': request.POST.get('car_model', ''),
+                'car_year': request.POST.get('car_year', ''),
+            }
+
+            # You can add more attributes to the 'review' dictionary based on your cloud function
+
+            # Perform any additional processing or call your cloud function to add the review
+            # Example: add_review_to_cloud(review)
+
+            # Return a success message or redirect to a confirmation page
+            return HttpResponse(f"Review added successfully for dealer {dealer_id}")
+
+        else:
+            # User is not authenticated, return an error message or redirect to a login page
+            return HttpResponse("Error: Only authenticated users can post reviews.")
+
+    else:
+        # If the request method is not POST, return an error or handle accordingly
+        return HttpResponse("Error: Invalid request method.")
 # ...
 
