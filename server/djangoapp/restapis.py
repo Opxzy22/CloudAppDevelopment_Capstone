@@ -24,6 +24,9 @@ def get_request(url, **kwargs):
 
 # Create a `post_request` to make HTTP POST requests
 # e.g., response = requests.post(url, params=kwargs, json=payload)
+def post_request(url, params=kwargs, json=payload):
+  response = request.post(url, params=kwargs, json=payload)
+  return response 
 
 
 # Create a get_dealers_from_cf method to get dealers from a cloud function
@@ -118,9 +121,7 @@ def analyze_review_sentiments(text, **kwargs):
         "return_analyzed_text": kwargs.get("return_analyzed_text", "")
     }
 
-    # Replace 'url' with the actual URL of your Watson NLU service
-    url = "https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/YOUR_INSTANCE_ID/v1/analyze"
-
+    url = https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/f6a43d38-3b00-4b44-b613-5b9b24ed7d6d
     # Make a GET request to the Watson NLU service
     response = requests.get(
         url,
