@@ -25,7 +25,7 @@ def get_request(url, **kwargs):
 # Create a `post_request` to make HTTP POST requests
 # e.g., response = requests.post(url, params=kwargs, json=payload)
 def post_request(url, params=kwargs, json=payload):
-  response = request.post(url, params=kwargs, json=payload)
+  response = requests.post(url, params=kwargs, json=payload)
   return response 
 
 
