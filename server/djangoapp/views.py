@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.forms import UserCreationForm
 # from .models import related models
 # from .restapis import related methods
-from .restapis import get_dealers_from_cf, get_dealers_by_state, get_dealer_reviews_from_cf_with_sentiment
+from .restapis import get_dealers_from_cf, get_dealers_by_state
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
