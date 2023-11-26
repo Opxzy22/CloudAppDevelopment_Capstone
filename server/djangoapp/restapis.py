@@ -66,7 +66,7 @@ def get_dealers_by_state(url, state, **kwargs):
 # Create a get_dealer_reviews_from_cf method to get reviews by dealer id from a cloud function
 from django.http import HttpResponse
 
-def get_dealer_reviews_from_cf(url, dealerId=dealer_id):
+def get_dealer_reviews_from_cf(url, dealerId):
     results = []
 
     # Call get_request() with specified arguments
