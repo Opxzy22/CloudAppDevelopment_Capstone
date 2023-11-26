@@ -101,7 +101,7 @@ def get_dealerships(request):
         return render(request, 'djangoapp/index.html', context)
 
 
-def get_dealershps_by_state(request, state):
+def get_dealerships_by_state(request, state):
     if request.method == "GET":
         url = "https://us-south.functions.appdomain.cloud/api/v1/web/a12ecb5a-f0a3-4a55-9a4a-b1b28c1fdc99/default/getDealerships"
         # get dealers by state from url
